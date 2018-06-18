@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 public class ProdutoDao {
+	
 	private static final String PERSISTENCE_UNIT = "estoque";
 
 	public void salvar(Produto produto) {
@@ -21,36 +22,46 @@ public class ProdutoDao {
 	}
 
 	public List<Produto> listar(Produto produto) {
-		
+
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 		EntityManager manager = factory.createEntityManager();
-		
+
 		Query query = null;
-		
+
 		String codigo = produto != null ? produto.getCodigo() : "";
 		String descricao = produto != null ? produto.getDescricao() : "";
-		
+
 		if (!codigo.equals("") && descricao.equals("")) {
 			query = manager.createQuery("FROM Produto WHERE codigo LIKE :paramCodigo ORDER BY descricao");
 			query.setParameter("paramCodigo", "%" + codigo + "%");
-			
+
 		} else if (codigo.equals("") && !descricao.equals("")) {
 			query = manager.createQuery("FROM Produto WHERE descricao LIKE :paramDescricao ORDER BY descricao");
 			query.setParameter("paramDescricao", "%" + descricao + "%");
-			
+
 		} else if (!codigo.equals("") && !descricao.equals("")) {
 			query = manager.createQuery(
 					"FROM Produto WHERE codigo LIKE :paramCodigo AND descricao LIKE :paramDescricao ORDER BY descricao");
 			query.setParameter("paramCodigo", "%" + codigo + "%");
 			query.setParameter("paramDescricao", "%" + descricao + "%");
-			
+
 		} else {
-			
+
 			query = manager.createQuery("FROM Produto ORDER BY descricao");
 		}
 		List<Produto> lista = query.getResultList();
 		manager.close();
 		factory.close();
 		return lista;
+	}
+
+	public Produto buscarPorId(int id) {
+		Produto obj = null;
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+		EntityManager manager = factory.createEntityManager();
+		obj = manager.find(Produto.class, id);
+		manager.close();
+		factory.close();
+		return obj;
 	}
 }

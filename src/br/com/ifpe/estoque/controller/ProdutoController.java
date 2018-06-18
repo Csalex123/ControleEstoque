@@ -20,6 +20,14 @@ public class ProdutoController {
 		return "produto/incluirProduto";
 	}
 
+	@RequestMapping("/produto/edit")
+	public String edit(@RequestParam("id") Integer id, Model model) {
+		ProdutoDao dao = new ProdutoDao();
+		Produto produto = dao.buscarPorId(id);
+		model.addAttribute("produto", produto);
+		return "produto/alterarProduto";
+	}
+
 	@RequestMapping("/produto/lista")
 	public String listarProduto(Model model) {
 		ProdutoDao dao = new ProdutoDao();

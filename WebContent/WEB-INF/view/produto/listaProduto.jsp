@@ -64,6 +64,7 @@
 				<th>Preco de venda</th>
 				<th>Garantia</th>
 				<th>Imagem</th>
+				<th>Ações</th>
 
 			</tr>
 		</thead>
@@ -89,6 +90,10 @@
 								src="<%=request.getContextPath()%>/resources/img/${ produto.imagem }"></td>
 						</c:otherwise>
 					</c:choose>
+					<td>
+						<a class="btn btn-primary" href="edit?id=${produto.id}">Alterar</a> 
+						<a class="btn btn-danger" href="delete?id=${produto.id}">Apagar</a>
+					</td>
 
 				</tr>
 			</c:forEach>
