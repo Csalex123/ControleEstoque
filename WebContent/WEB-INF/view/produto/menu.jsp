@@ -14,6 +14,7 @@
        
        <li><a href="add">Cadastrar Produtos</a></li>
 	   <li><a href="lista">Listar Produtos</a></li> 
+	   <li><a href="../categoria/add">Incluir Categoria</a></li> 
 	     
       </ul>
     </div>

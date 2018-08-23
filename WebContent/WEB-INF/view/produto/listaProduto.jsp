@@ -21,6 +21,35 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		function carregaTabelaJSon() {
+			var texto = $('#descricao').val();
+			var idCategoria = $('#categoriaProduto').val();
+			
+			
+			$.post("filter", {
+				'descricao' : texto,
+				'idCategoria' : idCategoria
+				}, function(dadosJSON) {
+					
+				console.log(dadosJSON);
+				...
+				});
+
+		}
+		
+		$("#descricao").keyup(function() {
+			carregaTabelaJSon();
+		});
+
+		$("#categoriaProduto").change(function() {
+			carregaTabelaJSon();
+		});
+	});
+</script>
 </head>
 <body>
 
@@ -31,7 +60,7 @@
 	<hr>
 	<h3>Filtro Produtos</h3>
 	<hr>
-	
+
 	<div>
 		<form action="filter">
 			<div class="form-group">
@@ -90,8 +119,7 @@
 								src="<%=request.getContextPath()%>/resources/img/${ produto.imagem }"></td>
 						</c:otherwise>
 					</c:choose>
-					<td>
-						<a class="btn btn-primary" href="edit?id=${produto.id}">Alterar</a> 
+					<td><a class="btn btn-primary" href="edit?id=${produto.id}">Alterar</a>
 						<a class="btn btn-danger" href="delete?id=${produto.id}">Apagar</a>
 					</td>
 

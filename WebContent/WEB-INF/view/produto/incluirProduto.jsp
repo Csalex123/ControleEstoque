@@ -37,6 +37,17 @@
 				Descrição: <br /> <input class="form-control" type="text"
 					name="descricao" />
 			</p>
+			
+			<div class="form-group">
+				<label for="categoriaProduto">Categoria</label> <br />
+				
+				<select id="categoriaProduto" name="categoriaProduto" class="form-control" >
+						
+						<c:forEach items="${listaCategoriaProduto}" var="obj">
+							<option value="${obj.id}">${obj.descricao}</option>
+						</c:forEach>
+				</select>
+			</div>
 			<p>
 				Preco de Custo: <br /> <input class="form-control" type="text"
 					name="precoCusto" />
@@ -55,10 +66,13 @@
 				quantidade: <br /> <input class="form-control" type="number"
 					name="quantidade" />
 			</p>
-
+			
 			<p>
 				Foto do Produto: <br /> <input type="file" name="file">
 			</p>
+			
+			
+			
 
 			<a href="listarProduto" class="btn btn-danger" role="button">Cancelar</a> &nbsp;
 				
